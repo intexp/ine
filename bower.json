@@ -1,0 +1,20 @@
+{
+  "name": "ine",
+  "version": "0.0.0",
+  "authors": [
+    "Giorgi Bichinashvili <giorgi.bichinashvili@gmail.com>"
+  ],
+  "main": "assets/js/main.js, assets/css/main.css",
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "web/assets/vendor/",
+    "test",
+    "tests"
+  ]
+}
