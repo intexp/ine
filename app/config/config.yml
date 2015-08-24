@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: custom/languages.config.yml }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -83,3 +84,15 @@ fos_user:
     db_driver: orm
     firewall_name: user
     user_class: UserBundle\Entity\User
+
+jms_i18n_routing:
+    default_locale: %languages.default%
+    locales: %languages.locales%
+    strategy: prefix_except_default
+
+lexik_translation:
+    fallback_locale: %languages.default%
+    managed_locales: %languages.locales%
+    base_layout:     "LexikTranslationBundle::layout.html.twig"
+    grid_input_type: textarea     # define field type used in the grid (text|textarea)
+    grid_toggle_similar: false
