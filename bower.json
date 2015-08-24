@@ -16,5 +16,8 @@
     "web/assets/vendor/",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "admin-lte": "~2.3.0"
+  }
 }

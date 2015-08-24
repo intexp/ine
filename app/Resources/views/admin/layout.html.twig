@@ -1,0 +1,146 @@
+{% set locale = app.request.getLocale() %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>{% block title %}IEOAdmin{% endblock %}</title>
+
+    {% block stylesheets %}
+        <link href="{{ asset("assets/vendor/admin-lte/bootstrap/css/bootstrap.min.css") }}" rel="stylesheet" type="text/css" />
+
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+
+        <!-- Theme style -->
+        <link href="{{ asset("assets/vendor/admin-lte/dist/css/AdminLTE.min.css") }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset("assets/vendor/admin-lte/dist/css/skins/skin-blue.css") }}" rel="stylesheet" type="text/css" />
+
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    {% endblock %}
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+
+<body class="skin-blue sidebar-mini">
+    <!-- Site wrapper -->
+    <div class="wrapper">
+
+        <header class="main-header">
+            <a href="{{ path("admin_dashboard") }}" class="logo">
+                <span class="logo-lg">INEX ADMIN</span>
+                <span class="logo-mini">INEX</span>
+            </a>
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top" role="navigation">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <!-- User Account: style can be found in dropdown.less -->
+                        <li>
+                            <a href="{{ path("home") }}" target="_blank">
+                                <span class="fa fa-home"></span> Visit public website >>
+                            </a>
+                        </li>
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="fa fa-user"></span>
+                                <span class="hidden-xs">{{ app.user.username }}</span>&nbsp;&nbsp;
+                                <i class="fa fa-chevron-down"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li role="presentation">
+                                    <a href="{{ path("admin_account_edit") }}" role="menuitem" tabindex="-1"><i class="fa fa-pencil-square-o"></i> Edit Account</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="{{ path("admin_change_password") }}" role="menuitem" tabindex="-1"><i class="fa fa-key"></i> Change Password</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="{{ path("admin_logout") }}" role="menuitem" tabindex="-1"><i class="fa fa-sign-out"></i> Log out</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <!-- =============================================== -->
+
+        <!-- Left side column. contains the sidebar -->
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu">
+                    <li class="header">MAIN NAVIGATION</li>
+                    <li>
+                        <a href="{{ path("admin_dashboard") }}">
+                            <i class="fa fa-dashboard"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    {% if is_granted("ROLE_SUPER_ADMIN") %}
+                    <li>
+                        <a href="{{ path("lexik_translation_grid") }}" target="_blank">
+                            <i class="fa fa-language"></i>
+                            <span>Translation</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% if is_granted("ROLE_SUPER_ADMIN") %}
+                        <li>
+                            <a href="{{ path("lexik_monolog_browser_index") }}" target="_blank">
+                                <i class="fa fa-bug"></i>
+                                <span>Logs</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    <li>
+                        <a href="{{ path("admin_logout") }}">
+                            <i class="fa fa-sign-out"></i>
+                            <span>Log out</span>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- =============================================== -->
+
+        <!-- Right side column. Contains the navbar and content of the page -->
+        <div class="content-wrapper">
+
+            {% block section %} {% endblock %}
+
+        </div><!-- /.content-wrapper -->
+
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b>
+            </div>
+            <strong>Inex Group.</strong> All rights reserved.
+        </footer>
+    </div><!-- ./wrapper -->
+
+    {% block javascripts %}
+        <!-- jQuery 2.1.4 -->
+        <script src="{{ asset("assets/vendor/admin-lte/plugins/jQuery/jQuery-2.1.4.min.js") }}"></script>
+        <!-- Bootstrap 3.3.2 JS -->
+        <script src="{{ asset("assets/vendor/admin-lte/bootstrap/js/bootstrap.min.js") }}" type="text/javascript"></script>
+        <!-- AdminLTE App -->
+        <script src="{{ asset("assets/vendor/admin-lte/dist/js/app.min.js") }}" type="text/javascript"></script>
+    {% endblock %}
+</body>
+</html>

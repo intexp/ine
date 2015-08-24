@@ -3,6 +3,9 @@ security:
         FOS\UserBundle\Model\UserInterface:
             algorithm: bcrypt
             cost: 12
+        AdminBundle\Entity\User:
+            algorithm: bcrypt
+            cost: 12
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
@@ -11,11 +14,26 @@ security:
     providers:
         fos_userbundle:
             id: fos_user.user_provider.username
+        administrator:
+            entity: { class: AdminBundle:User, property: username }
 
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt|error)|css|images|js)/
             security: false
+
+        admin:
+            pattern: ^/inexadmin
+            form_login:
+                provider: administrator
+                login_path: admin_login
+                check_path: admin_login_check
+                csrf_provider: security.csrf.token_manager
+                default_target_path: admin_dashboard
+            logout:
+                path: admin_logout
+                target: admin_login
+            anonymous: ~
 
         user:
             pattern: ^/
@@ -34,6 +52,13 @@ security:
             anonymous: ~
 
     access_control:
+        - { path: ^/inexadmin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/[^/]+/inexadmin/translations, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/inexadmin/translations, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/[^/]+/inexadmin/monolog, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/inexadmin/monolog, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/[^/]+/inexadmin, roles: ROLE_ADMIN }
+        - { path: ^/inexadmin, roles: ROLE_ADMIN }
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }

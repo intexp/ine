@@ -21,6 +21,8 @@ class AppKernel extends Kernel
             new Lexik\Bundle\TranslationBundle\LexikTranslationBundle(),
             new Lexik\Bundle\MonologBrowserBundle\LexikMonologBrowserBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
+            new AdminBundle\AdminBundle(),
             new AppBundle\AppBundle(),
             new UserBundle\UserBundle(),
         );
