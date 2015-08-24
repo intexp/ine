@@ -19,6 +19,8 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
             new Lexik\Bundle\TranslationBundle\LexikTranslationBundle(),
+            new Lexik\Bundle\MonologBrowserBundle\LexikMonologBrowserBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new AppBundle\AppBundle(),
             new UserBundle\UserBundle(),
         );

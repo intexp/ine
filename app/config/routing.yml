@@ -12,4 +12,8 @@ fos_user:
 
 lexik_translation_edition:
     resource: "@LexikTranslationBundle/Resources/config/routing.yml"
-    prefix:   /ieoadmin/translations
+    prefix:   /inexadmin/translations
+
+lexik_monolog_browser:
+    resource: "@LexikMonologBrowserBundle/Resources/config/routing.xml"
+    prefix:   /inexadmin/monolog

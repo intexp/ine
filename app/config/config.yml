@@ -96,3 +96,17 @@ lexik_translation:
     base_layout:     "LexikTranslationBundle::layout.html.twig"
     grid_input_type: textarea     # define field type used in the grid (text|textarea)
     grid_toggle_similar: false
+
+
+lexik_monolog_browser:
+    doctrine:
+        table_name: monolog_entries
+        connection:
+            driver:      pdo_mysql
+            dbname:      "%database_name%"
+            host:        "%database_host%"
+            port:        "%database_port%"
+            user:        "%database_user%"
+            password:    "%database_password%"
+            charset:     UTF8
+            unix_socket: ~
