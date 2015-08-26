@@ -1,0 +1,19 @@
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            {% for field in viewer.fields %}
+            <th>{{ field }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for result in viewer.paginatedResults %}
+        <tr>
+            {% for column in result %}
+            <td>{{ column }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
