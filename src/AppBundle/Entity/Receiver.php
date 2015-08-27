@@ -1,19 +1,16 @@
 <?php
 
-namespace UserBundle\Entity;
+namespace AppBundle\Entity;
 
-use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use UserBundle\Entity\User;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="ie_user", options={"collate"="utf8_general_ci", "charset"="utf8"})
- * @UniqueEntity(fields="code", message="This code is already in use. It must be unique.")
- * @UniqueEntity(fields="mobile", message="This mobile is already in use. It must be unique.")
+ * @ORM\Table(name="receiver", options={"collate"="utf8_general_ci", "charset"="utf8"})
  */
-class User extends BaseUser
+class Receiver
 {
     /**
      * @ORM\Id
@@ -25,16 +22,8 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="code", type="string", length=255)
-     * @Assert\NotBlank(message = "user.code.not_blank")
-     */
-    protected $code;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="first_name", type="string", length=255)
-     * @Assert\NotBlank(message = "user.first_name.not_blank")
+     * @Assert\NotBlank(message = "receiver.first_name.not_blank")
      */
     protected $firstName;
 
@@ -42,31 +31,28 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="last_name", type="string", length=255)
-     * @Assert\NotBlank(message = "user.last_name.not_blank")
+     * @Assert\NotBlank(message = "receiver.last_name.not_blank")
      */
     protected $lastName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="country", type="string", length=255)
-     * @Assert\NotBlank(message = "user.country.not_blank")
+     * @ORM\Column(name="country", type="string", length=255, nullable=true)
      */
     protected $country;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="city", type="string", length=255)
-     * @Assert\NotBlank(message = "user.city.not_blank")
+     * @ORM\Column(name="city", type="string", length=255, nullable=true)
      */
     protected $city;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="address", type="string", length=255)
-     * @Assert\NotBlank(message = "user.address.not_blank")
+     * @ORM\Column(name="address", type="string", length=255, nullable=true)
      */
     protected $address;
 
@@ -87,40 +73,33 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="mobile", type="string", length=255)
-     * @Assert\NotBlank(message = "user.mobile.not_blank")
+     * @ORM\Column(name="mobile", type="string", length=255, nullable=true)
      */
     protected $mobile;
 
+    /**
+     * @var \UserBundle\Entity\User
+     *
+     * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="sender_id", referencedColumnName="id", nullable=true)
+     */
+    private $sender;
 
     /**
-     * Set code
+     * Get id
      *
-     * @param string $code
-     * @return User
+     * @return integer 
      */
-    public function setCode($code)
+    public function getId()
     {
-        $this->code = $code;
-
-        return $this;
-    }
-
-    /**
-     * Get code
-     *
-     * @return string 
-     */
-    public function getCode()
-    {
-        return $this->code;
+        return $this->id;
     }
 
     /**
      * Set firstName
      *
      * @param string $firstName
-     * @return User
+     * @return Receiver
      */
     public function setFirstName($firstName)
     {
@@ -143,7 +122,7 @@ class User extends BaseUser
      * Set lastName
      *
      * @param string $lastName
-     * @return User
+     * @return Receiver
      */
     public function setLastName($lastName)
     {
@@ -166,7 +145,7 @@ class User extends BaseUser
      * Set country
      *
      * @param string $country
-     * @return User
+     * @return Receiver
      */
     public function setCountry($country)
     {
@@ -189,7 +168,7 @@ class User extends BaseUser
      * Set city
      *
      * @param string $city
-     * @return User
+     * @return Receiver
      */
     public function setCity($city)
     {
@@ -212,7 +191,7 @@ class User extends BaseUser
      * Set address
      *
      * @param string $address
-     * @return User
+     * @return Receiver
      */
     public function setAddress($address)
     {
@@ -235,7 +214,7 @@ class User extends BaseUser
      * Set zipCode
      *
      * @param string $zipCode
-     * @return User
+     * @return Receiver
      */
     public function setZipCode($zipCode)
     {
@@ -258,7 +237,7 @@ class User extends BaseUser
      * Set phone
      *
      * @param string $phone
-     * @return User
+     * @return Receiver
      */
     public function setPhone($phone)
     {
@@ -281,7 +260,7 @@ class User extends BaseUser
      * Set mobile
      *
      * @param string $mobile
-     * @return User
+     * @return Receiver
      */
     public function setMobile($mobile)
     {
@@ -298,5 +277,28 @@ class User extends BaseUser
     public function getMobile()
     {
         return $this->mobile;
+    }
+
+    /**
+     * Set sender
+     *
+     * @param \UserBundle\Entity\User $sender
+     * @return Receiver
+     */
+    public function setSender(User $sender = null)
+    {
+        $this->sender = $sender;
+
+        return $this;
+    }
+
+    /**
+     * Get sender
+     *
+     * @return \UserBundle\Entity\User 
+     */
+    public function getSender()
+    {
+        return $this->sender;
     }
 }
